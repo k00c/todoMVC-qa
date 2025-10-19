@@ -52,7 +52,7 @@
 ### 1. **Automate Key Scenarios**
 
 - [x] Automate high-priority test cases from your plan.
-- [ ] Use Playwright’s auto-waiting and web-first assertions for reliability.
+- [x] Use Playwright’s auto-waiting and web-first assertions for reliability.
 
 ### 2. **Incorporate Accessibility Testing**
 

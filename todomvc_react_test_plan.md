@@ -39,13 +39,13 @@ The scope of this test plan includes:
 - [ ] **Delete Task**:
   - [x] Delete a single task.
   - [x] Delete all tasks.
-- [ ] **Mark Task as Completed**:
-  - [ ] Mark a single task as completed.
-  - [ ] Mark all tasks as completed.
-- [ ] **Filter Tasks**:
-  - [ ] Verify "All" filter shows all tasks.
-  - [ ] Verify "Active" filter shows only active tasks.
-  - [ ] Verify "Completed" filter shows only completed tasks.
+- [x] **Mark Task as Completed**:
+  - [x] Mark a single task as completed.
+  - [x] Mark all tasks as completed.
+- [x] **Filter Tasks**:
+  - [x] Verify "All" filter shows all tasks.
+  - [x] Verify "Active" filter shows only active tasks.
+  - [x] Verify "Completed" filter shows only completed tasks.
 
 #### **Medium Priority (Edge Cases)**
 
