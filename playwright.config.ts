@@ -12,7 +12,6 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-
   testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -29,7 +28,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: "https://todomvc.com",
     // run headless in CI, can run headed locally for debugging/review
-    headless: process.env.CI ? true : false,  
+    headless: process.env.CI ? true : false,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
   },
