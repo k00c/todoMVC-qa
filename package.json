@@ -10,6 +10,9 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@types/node": "^24.8.1"
+    "@types/node": "^24.8.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "eslint-plugin-playwright": "^2.2.2"
   }
 }

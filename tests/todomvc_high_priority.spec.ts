@@ -51,7 +51,7 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
 
     await test.step('Verify the task is deleted', async () => {
       const task = page.getByText('Task to delete');
-      await expect(task).not.toBeVisible();
+      await expect(task).toBeHidden();
     });
   });
 
