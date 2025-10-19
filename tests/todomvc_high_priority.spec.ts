@@ -1,5 +1,24 @@
 import { test, expect } from '@playwright/test';
 
+// Helper functions for reusability
+async function addTasks(page: import('@playwright/test').Page, tasks: string[]) {
+  const input = page.getByPlaceholder('What needs to be done?');
+  for (const task of tasks) {
+    await input.fill(task);
+    await input.press('Enter');
+  }
+}
+
+async function completeAllTasks(page: import('@playwright/test').Page) {
+  const toggleAll = page.getByRole('checkbox', { name: /toggle all/i });
+  await toggleAll.click();
+}
+
+async function clearCompletedTasks(page: import('@playwright/test').Page) {
+  const clearCompleted = page.getByRole('button', { name: 'Clear completed' });
+  await clearCompleted.click();
+}
+
 test.describe('TodoMVC React - High Priority Functional Tests', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the application before each test
@@ -8,9 +27,7 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
 
   test('Add a single task', async ({ page }) => {
     await test.step('Add a task named "Buy groceries"', async () => {
-      const input = page.getByPlaceholder('What needs to be done?');
-      await input.fill('Buy groceries');
-      await input.press('Enter');
+      await addTasks(page, ['Buy groceries']);
     });
 
     await test.step('Verify the task is added to the list', async () => {
@@ -21,9 +38,7 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
 
   test('Delete a single task', async ({ page }) => {
     await test.step('Add a task to delete', async () => {
-      const input = page.getByPlaceholder('What needs to be done?');
-      await input.fill('Task to delete');
-      await input.press('Enter');
+      await addTasks(page, ['Task to delete']);
     });
 
     await test.step('Delete the task', async () => {
@@ -31,7 +46,6 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
       const task = page.getByText('Task to delete');
       await task.hover();
       const deleteButton = page.locator('.destroy');
-      //await deleteButton.hover();
       await deleteButton.click();
     });
 
@@ -43,9 +57,7 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
 
   test('Mark a task as completed', async ({ page }) => {
     await test.step('Add a task to mark as completed', async () => {
-      const input = page.getByPlaceholder('What needs to be done?');
-      await input.fill('Complete this task');
-      await input.press('Enter');
+      await addTasks(page, ['Complete this task']);
     });
 
     await test.step('Mark the task as completed', async () => {
@@ -61,11 +73,7 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
 
   test('Filter tasks by status', async ({ page }) => {
     await test.step('Add multiple tasks', async () => {
-      const input = page.getByPlaceholder('What needs to be done?');
-      await input.fill('Task 1');
-      await input.press('Enter');
-      await input.fill('Task 2');
-      await input.press('Enter');
+      await addTasks(page, ['Task 1', 'Task 2']);
     });
 
     await test.step('Mark one task as completed', async () => {
@@ -90,13 +98,7 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
 
   test('Add multiple tasks', async ({ page }) => {
     await test.step('Add three tasks', async () => {
-      const input = page.getByPlaceholder('What needs to be done?');
-      await input.fill('Task 1');
-      await input.press('Enter');
-      await input.fill('Task 2');
-      await input.press('Enter');
-      await input.fill('Task 3');
-      await input.press('Enter');
+      await addTasks(page, ['Task 1', 'Task 2', 'Task 3']);
     });
 
     await test.step('Verify all tasks are added', async () => {
@@ -105,6 +107,36 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
       await expect(page.getByText('Task 1')).toBeVisible();
       await expect(page.getByText('Task 2')).toBeVisible();
       await expect(page.getByText('Task 3')).toBeVisible();
+    });
+  });
+
+  test('Add a task with special characters', async ({ page }) => {
+    await test.step('Add a task with special characters', async () => {
+      await addTasks(page, ['Special !@#$%^*()']);
+    });
+
+    await test.step('Verify the special character task is added', async () => {
+      const task = page.getByText('Special !@#$%^*()');
+      await expect(task).toBeVisible();
+    });
+  });
+
+  test('Delete all tasks', async ({ page }) => {
+    await test.step('Add multiple tasks', async () => {
+      await addTasks(page, ['Task 1', 'Task 2', 'Task 3']);
+    });
+
+    await test.step('Mark all tasks as completed', async () => {
+      await completeAllTasks(page);
+    });
+
+    await test.step('Clear all completed tasks', async () => {
+      await clearCompletedTasks(page);
+    });
+
+    await test.step('Verify all tasks are deleted', async () => {
+      const tasks = page.locator('.todo-list li');
+      await expect(tasks).toHaveCount(0);
     });
   });
 });

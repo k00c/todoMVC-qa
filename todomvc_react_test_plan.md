@@ -26,13 +26,13 @@ The scope of this test plan includes:
 
 ### **4.1 Functional Tests**
 #### **High Priority (Critical User Flows)**
-- [ ] **Add Task**:
+- [x] **Add Task**:
   - [x] Add a single task. 
-  - [ ] Add multiple tasks.
-  - [ ] Add a task with special characters.
+  - [x] Add multiple tasks.
+  - [x] Add a task with special characters.
 - [ ] **Delete Task**:
-  - [ ] Delete a single task.
-  - [ ] Delete all tasks.
+  - [x] Delete a single task.
+  - [x] Delete all tasks.
 - [ ] **Mark Task as Completed**:
   - [ ] Mark a single task as completed.
   - [ ] Mark all tasks as completed.
