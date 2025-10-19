@@ -96,6 +96,15 @@
 
 ---
 
+## **CI/CD Integration and Quality Assurance**
+
+### 1. **Integrate with CI/CD**
+
+- [ ] Add AI/static analysis tools (e.g., CodeQL, SonarCloud, actionlint) to CI for enhanced code safety and quality.
+- [ ] Set up a dedicated "Quality Gate Review" in the workflow to ensure all code passes linting, formatting, static analysis, and security checks before merging.
+
+---
+
 ## **Outcome**
 
 By the end of 4 hours, you’ll have:
@@ -104,5 +113,3 @@ By the end of 4 hours, you’ll have:
 - [ ] Automated 2-3 key test cases.
 - [ ] Practiced advanced Playwright features.
 - [ ] Improved your QA planning and automation skills.
-
----
