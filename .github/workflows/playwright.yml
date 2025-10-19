@@ -24,9 +24,10 @@ jobs:
       - name: Install actionlint
         if: steps.changed-workflows.outputs.changed_files != ''
         run: |
-          curl -sSL https://github.com/rhysd/actionlint/releases/latest/download/actionlint-linux-amd64.zip -o actionlint.zip
-          unzip -o actionlint.zip -d /usr/local/bin
-          chmod +x /usr/local/bin/actionlint
+          curl -sSL https://github.com/rhysd/actionlint/releases/latest/download/actionlint_linux_amd64.tar.gz -o actionlint.tar.gz
+          tar -xzf actionlint.tar.gz
+          chmod +x actionlint
+          mv actionlint /usr/local/bin/
 
       - name: Run actionlint on changed workflow files
         if: steps.changed-workflows.outputs.changed_files != ''
