@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('TodoMVC React - High Priority Functional Tests', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the application before each test
-    await page.goto('https://todomvc.com/examples/react/dist');
+    await page.goto('/examples/react/dist');
   });
 
   test('Add a single task', async ({ page }) => {
@@ -85,6 +85,26 @@ test.describe('TodoMVC React - High Priority Functional Tests', () => {
       await completedFilter.click();
       const completedTasks = page.locator('.todo-list li.completed');
       await expect(completedTasks).toHaveCount(1);
+    });
+  });
+
+  test('Add multiple tasks', async ({ page }) => {
+    await test.step('Add three tasks', async () => {
+      const input = page.getByPlaceholder('What needs to be done?');
+      await input.fill('Task 1');
+      await input.press('Enter');
+      await input.fill('Task 2');
+      await input.press('Enter');
+      await input.fill('Task 3');
+      await input.press('Enter');
+    });
+
+    await test.step('Verify all tasks are added', async () => {
+      const tasks = page.locator('.todo-list li');
+      await expect(tasks).toHaveCount(3);
+      await expect(page.getByText('Task 1')).toBeVisible();
+      await expect(page.getByText('Task 2')).toBeVisible();
+      await expect(page.getByText('Task 3')).toBeVisible();
     });
   });
 });
