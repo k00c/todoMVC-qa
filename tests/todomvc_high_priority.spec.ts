@@ -23,15 +23,6 @@ async function clearCompletedTasks(page: import("@playwright/test").Page) {
 }
 
 test.describe("TodoMVC React - High Priority Functional Tests", () => {
-  // CodeQL test: low-risk use of eval to trigger a CodeQL alert
-  // eslint-disable-next-line no-eval
-  test("CodeQL test: eval usage should be flagged", async () => {
-    // This is a deliberate, low-risk use of eval for CodeQL testing
-    // Do not use eval in production code!
-    // @ts-ignore
-    eval("console.log('CodeQL test')");
-    expect(true).toBeTruthy();
-  });
   test.beforeEach(async ({ page }) => {
     // Navigate to the application before each test
     await page.goto("/examples/react/dist");
