@@ -9,6 +9,8 @@ on:
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
+    env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
       - name: Set up Node.js
@@ -22,4 +24,3 @@ jobs:
         with:
           projectKey: <your-sonarcloud-project-key>
           organization: <your-sonarcloud-organization>
-          token: ${{ secrets.SONAR_TOKEN }}
