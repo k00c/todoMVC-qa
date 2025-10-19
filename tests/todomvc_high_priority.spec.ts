@@ -55,7 +55,7 @@ test.describe("TodoMVC React - High Priority Functional Tests", () => {
     });
 
     await test.step("Click 'Active' filter", async () => {
-      const activeFilter = page.getByText("Active");
+      const activeFilter = page.getByRole("link", { name: "Active" });
       await activeFilter.click();
     });
 
@@ -65,7 +65,9 @@ test.describe("TodoMVC React - High Priority Functional Tests", () => {
     });
   });
 
-  test("Verify 'Completed' filter shows only completed tasks", async ({ page }) => {
+  test("Verify 'Completed' filter shows only completed tasks", async ({
+    page,
+  }) => {
     await test.step("Add multiple tasks", async () => {
       await addTasks(page, ["Task 1", "Task 2", "Task 3"]);
     });
