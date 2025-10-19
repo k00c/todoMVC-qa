@@ -14,8 +14,18 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-      - name: Run actionlint on workflow files
+      - name: Check for changed workflow files
+        id: changed-workflows
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep '^.github/workflows/.*\.yml$' || true)
+          echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
+
+      - name: Run actionlint on changed workflow files
+        if: steps.changed-workflows.outputs.changed_files != ''
         uses: rhysd/actionlint@main
+        with:
+          paths: ${{ steps.changed-workflows.outputs.changed_files }}
       - name: Run Prettier (check only)
         run: npx prettier --check .
       - name: Run ESLint
