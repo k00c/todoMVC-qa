@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
         with:
           projectKey: <your-sonarcloud-project-key>
           organization: <your-sonarcloud-organization>
