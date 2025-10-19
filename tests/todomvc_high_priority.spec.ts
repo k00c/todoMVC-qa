@@ -28,6 +28,79 @@ test.describe("TodoMVC React - High Priority Functional Tests", () => {
     await page.goto("/examples/react/dist");
   });
 
+  test("Verify 'All' filter shows all tasks", async ({ page }) => {
+    await test.step("Add multiple tasks", async () => {
+      await addTasks(page, ["Task 1", "Task 2", "Task 3"]);
+    });
+
+    await test.step("Click 'All' filter", async () => {
+      const allFilter = page.getByRole("link", { name: "All" });
+      await allFilter.click();
+    });
+
+    await test.step("Verify all tasks are visible", async () => {
+      const tasks = page.locator(".todo-list li");
+      await expect(tasks).toHaveCount(3);
+    });
+  });
+
+  test("Verify 'Active' filter shows only active tasks", async ({ page }) => {
+    await test.step("Add multiple tasks", async () => {
+      await addTasks(page, ["Task 1", "Task 2", "Task 3"]);
+    });
+
+    await test.step("Mark one task as completed", async () => {
+      const toggle = page.locator(".toggle").first();
+      await toggle.click();
+    });
+
+    await test.step("Click 'Active' filter", async () => {
+      const activeFilter = page.getByText("Active");
+      await activeFilter.click();
+    });
+
+    await test.step("Verify only active tasks are visible", async () => {
+      const activeTasks = page.locator(".todo-list li:not(.completed)");
+      await expect(activeTasks).toHaveCount(2);
+    });
+  });
+
+  test("Verify 'Completed' filter shows only completed tasks", async ({ page }) => {
+    await test.step("Add multiple tasks", async () => {
+      await addTasks(page, ["Task 1", "Task 2", "Task 3"]);
+    });
+
+    await test.step("Mark one task as completed", async () => {
+      const toggle = page.locator(".toggle").first();
+      await toggle.click();
+    });
+
+    await test.step("Click 'Completed' filter", async () => {
+      const completedFilter = page.getByRole("link", { name: "Completed" });
+      await completedFilter.click();
+    });
+
+    await test.step("Verify only completed tasks are visible", async () => {
+      const completedTasks = page.locator(".todo-list li.completed");
+      await expect(completedTasks).toHaveCount(1);
+    });
+  });
+
+  test("Mark all tasks as completed", async ({ page }) => {
+    await test.step("Add multiple tasks", async () => {
+      await addTasks(page, ["Task 1", "Task 2", "Task 3"]);
+    });
+
+    await test.step("Mark all tasks as completed", async () => {
+      await completeAllTasks(page);
+    });
+
+    await test.step("Verify all tasks are marked as completed", async () => {
+      const completedTasks = page.locator(".todo-list li.completed");
+      await expect(completedTasks).toHaveCount(3);
+    });
+  });
+
   test("Add a single task", async ({ page }) => {
     await test.step('Add a task named "Buy groceries"', async () => {
       await addTasks(page, ["Buy groceries"]);
