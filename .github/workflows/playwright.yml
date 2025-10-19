@@ -21,11 +21,19 @@ jobs:
           CHANGED=$(git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep '^.github/workflows/.*\.yml$' || true)
           echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
 
+      - name: Install actionlint
+        if: steps.changed-workflows.outputs.changed_files != ''
+        run: |
+          curl -sSL https://github.com/rhysd/actionlint/releases/latest/download/actionlint-linux-amd64.zip -o actionlint.zip
+          unzip -o actionlint.zip -d /usr/local/bin
+          chmod +x /usr/local/bin/actionlint
+
       - name: Run actionlint on changed workflow files
         if: steps.changed-workflows.outputs.changed_files != ''
-        uses: rhysd/actionlint@main
-        with:
-          paths: ${{ steps.changed-workflows.outputs.changed_files }}
+        run: |
+          for file in ${{ steps.changed-workflows.outputs.changed_files }}; do
+            /usr/local/bin/actionlint "$file"
+          done
       - name: Run Prettier (check only)
         run: npx prettier --check .
       - name: Run ESLint
