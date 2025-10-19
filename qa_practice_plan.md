@@ -60,15 +60,15 @@
 
 ### 3. **Add Assertions**
 
-- [ ] Ensure meaningful assertions (e.g., `toHaveText`, `toHaveURL`).
+- [x] Ensure meaningful assertions (e.g., `toHaveText`, `toHaveURL`).
 
 ### 4. **Run and Debug**
 
-- [ ] Run your tests using:
+- [x] Run your tests using:
   ```bash
   npx playwright test
   ```
-- [ ] Debug any failures and refine your scripts.
+- [x] Debug any failures and refine your scripts.
 
 ---
 
@@ -100,7 +100,7 @@
 
 ### 1. **Integrate with CI/CD**
 
-- [ ] Add AI/static analysis tools (e.g., CodeQL, SonarCloud, actionlint) to CI for enhanced code safety and quality.
+- [ ] Add AI/static analysis tools (e.g., CodeQL, SonarCloud) to CI for enhanced code safety and quality.
 - [ ] Set up a dedicated "Quality Gate Review" in the workflow to ensure all code passes linting, formatting, static analysis, and security checks before merging.
 
 ---
