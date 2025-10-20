@@ -200,14 +200,18 @@ test.describe("TodoMVC React - High Priority Functional Tests", () => {
     });
   });
 
-  test("Add a task with ampersand character (known bug)", async ({ page }) => {
-    // Mark this test as expected to fail due to known bug
-    // Bug #1: & is rendered as &amp; in the React version
-    test.fail();
+  test("Add a task with ampersand character", async ({ page }) => {
+    // Note: This bug exists in the plain React version but NOT in TypeScript React
+    // Bug #1 in bug register: & renders as &amp; in /examples/react/dist/
+    // TypeScript React version renders it correctly
+    await test.step("Add a task with ampersand", async () => {
+      await addTasks(page, ["A & B"]);
+    });
 
-    await addTasks(page, ["A & B"]);
-    const task = page.getByText("A & B");
-    await expect(task).toBeVisible();
+    await test.step("Verify ampersand renders correctly", async () => {
+      const task = page.getByText("A & B");
+      await expect(task).toBeVisible();
+    });
   });
 
   test("Delete all tasks", async ({ page }) => {
