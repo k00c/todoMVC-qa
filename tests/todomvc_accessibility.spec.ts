@@ -67,9 +67,8 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
 
     await test.step("Verify clear completed button appears when needed", async () => {
       // Complete one task first
-      const checkbox = page
-        .locator('.todo-list input[type="checkbox"]')
-        .first();
+      const todoList = page.getByRole("list");
+      const checkbox = todoList.getByRole("checkbox").first();
       await checkbox.click();
 
       // Now the clear button should appear
@@ -102,9 +101,8 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
 
       // Tab to task checkbox
       await page.keyboard.press("Tab");
-      const taskCheckbox = page
-        .locator('.todo-list input[type="checkbox"]')
-        .first();
+      const todoList = page.getByRole("list");
+      const taskCheckbox = todoList.getByRole("checkbox").first();
       await expect(taskCheckbox).toBeFocused();
 
       // Continue tabbing through the filter links
@@ -127,9 +125,8 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
 
     await test.step("Use Space key to toggle task completion", async () => {
       // Focus on the task checkbox
-      const taskCheckbox = page
-        .locator('.todo-list input[type="checkbox"]')
-        .first();
+      const todoList = page.getByRole("list");
+      const taskCheckbox = todoList.getByRole("checkbox").first();
       await taskCheckbox.focus();
       await expect(taskCheckbox).toBeFocused();
 
@@ -171,9 +168,8 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
       await input.press("Enter");
 
       // Complete the task
-      const checkbox = page
-        .locator('.todo-list input[type="checkbox"]')
-        .first();
+      const todoList = page.getByRole("list");
+      const checkbox = todoList.getByRole("checkbox").first();
       await checkbox.click();
     });
 
@@ -247,9 +243,8 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
       await expect(page.getByRole("link", { name: "Completed" })).toBeVisible();
 
       // Complete the task to make Clear button appear
-      const checkbox = page
-        .locator('.todo-list input[type="checkbox"]')
-        .first();
+      const todoList = page.getByRole("list");
+      const checkbox = todoList.getByRole("checkbox").first();
       await checkbox.click();
 
       // Clear button (only visible when tasks are completed)
