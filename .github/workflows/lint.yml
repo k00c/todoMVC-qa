@@ -1,4 +1,4 @@
-name: Lint and Format Check
+name: Code Quality - Lint & Format
 
 on:
   workflow_call: # This makes it reusable by other workflows
@@ -8,7 +8,8 @@ on:
     branches: [main, master]
 
 jobs:
-  lint-and-format:
+  check-code-quality:
+    name: Prettier & ESLint Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

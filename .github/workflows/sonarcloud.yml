@@ -1,4 +1,4 @@
-name: SonarCloud
+name: Quality Analysis - SonarCloud
 permissions:
   contents: read
 
@@ -9,12 +9,14 @@ on:
     branches: [main]
 
 jobs:
-  lint-and-format:
+  code-quality:
+    name: Code Quality Gate
     uses: ./.github/workflows/lint.yml
 
-  sonarcloud:
+  sonarcloud-scan:
+    name: SonarCloud Quality Analysis
     runs-on: ubuntu-latest
-    needs: lint-and-format
+    needs: code-quality
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     steps:
