@@ -13,8 +13,9 @@ async function addTasks(
 }
 
 async function completeAllTasks(page: import("@playwright/test").Page) {
-  const toggleAll = page.getByRole("checkbox", { name: /toggle all/i });
-  await toggleAll.click();
+  // Click the label which is visible and triggers the hidden checkbox
+  const toggleLabel = page.locator('label[for="toggle-all"]');
+  await toggleLabel.click();
 }
 
 async function clearCompletedTasks(page: import("@playwright/test").Page) {
@@ -25,7 +26,7 @@ async function clearCompletedTasks(page: import("@playwright/test").Page) {
 test.describe("TodoMVC React - High Priority Functional Tests", () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the application before each test
-    await page.goto("/examples/react/dist");
+    await page.goto("/examples/typescript-react/#/");
   });
 
   test("Verify 'All' filter shows all tasks", async ({ page }) => {
