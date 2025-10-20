@@ -22,6 +22,8 @@ on:
 jobs:
   code-quality:
     name: Code Quality Gate
+    permissions:
+      contents: read
     uses: ./.github/workflows/lint.yml
 
   codeql-scan:

@@ -1,4 +1,6 @@
 name: E2E Tests - Playwright
+permissions:
+  contents: read
 on:
   push:
     branches: [main, master]
@@ -30,4 +32,4 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 7
