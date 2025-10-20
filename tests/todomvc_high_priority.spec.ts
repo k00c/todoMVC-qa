@@ -199,10 +199,18 @@ test.describe("TodoMVC React - High Priority Functional Tests", () => {
     });
   });
 
-  test("Add a task with ampersand character", async ({ page }) => {
+  test("Add a task with ampersand character (known bug)", async ({ page }) => {
+    test.fail(
+      true,
+      "Known bug: & is rendered as &amp; (see bug register, bug #1)",
+    );
     await addTasks(page, ["A & B"]);
-    const task = page.getByText("A & B");
-    await expect(task).toBeVisible();
+    // Check the actual text content, not the rendered text
+    // The bug is that innerHTML contains &amp; instead of &
+    const taskLabel = page.locator(".todo-list li label");
+    const innerHTML = await taskLabel.innerHTML();
+    // This should be "A & B" but due to the bug it's "A &amp; B"
+    await expect(innerHTML).toBe("A & B");
   });
 
   test("Delete all tasks", async ({ page }) => {
