@@ -1,3 +1,5 @@
+# Welcome
+
 ## Bug reporting
 
 When you see some bugs or false positives, it is helpful to [file a new issue][issue-form] with a minimal example

@@ -100,8 +100,8 @@
 
 ### 1. **Integrate with CI/CD**
 
-- [ ] Add AI/static analysis tools (e.g., CodeQL, SonarCloud, actionlint) to CI for enhanced code safety and quality.
-- [ ] Set up a dedicated "Quality Gate Review" in the workflow to ensure all code passes linting, formatting, static analysis, and security checks before merging.
+- [x] Add AI/static analysis tools (e.g., CodeQL, SonarCloud, actionlint) to CI for enhanced code safety and quality.
+- [ ] Do a dedicated "Quality Gate Review" to ensure all checks are useful, relevant and are efficient.
 
 ---
 
