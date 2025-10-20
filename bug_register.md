@@ -2,7 +2,7 @@
 
 ## 2025-10-19
 
-### Bug 1: Special Character Rendering Issue
+### Bug 1: Special Character Rendering Issue [RESOLVED]
 
 - **Summary:** The ampersand character (`&`) in a todo task is displayed as `&amp;` instead of `&`.
 - **Steps to Reproduce:**
@@ -23,3 +23,4 @@
   - Date: 2025-10-19
 - **Notes:**
   - This may indicate improper HTML escaping or rendering in the React app.
+- **Resolution:** As of 2025-10-20, this bug appears to be fixed. Tests now pass with ampersand character rendering correctly.

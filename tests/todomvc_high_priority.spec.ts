@@ -199,11 +199,7 @@ test.describe("TodoMVC React - High Priority Functional Tests", () => {
     });
   });
 
-  test("Add a task with ampersand character (known bug)", async ({ page }) => {
-    test.fail(
-      true,
-      "Known bug: & is rendered as &amp; (see bug register, bug #1)",
-    );
+  test("Add a task with ampersand character", async ({ page }) => {
     await addTasks(page, ["A & B"]);
     const task = page.getByText("A & B");
     await expect(task).toBeVisible();
