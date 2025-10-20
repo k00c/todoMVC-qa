@@ -78,7 +78,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     });
   });
 
-  test("Test keyboard navigation - Tab through interactive elements", async ({
+  test("keyboard navigation - Tab through interactive elements", async ({
     page,
   }) => {
     await test.step("Add a test task", async () => {
@@ -116,7 +116,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     });
   });
 
-  test("Test keyboard navigation - Space key to toggle checkbox", async ({
+  test("keyboard navigation - Space key to toggle checkbox", async ({
     page,
   }) => {
     await test.step("Add a test task", async () => {
@@ -142,11 +142,11 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
 
       // Press Space again to unmark
       await page.keyboard.press("Space");
-      await expect(completedTask).not.toBeVisible();
+      await expect(completedTask).toBeHidden();
     });
   });
 
-  test("Test keyboard navigation - Enter key to add task", async ({ page }) => {
+  test("keyboard navigation - Enter key to add task", async ({ page }) => {
     await test.step("Use Enter key to add task", async () => {
       const input = page.getByPlaceholder("What needs to be done?");
       await input.fill("Enter key test");
@@ -162,7 +162,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     });
   });
 
-  test("Test keyboard navigation - Arrow keys for filter navigation", async ({
+  test("keyboard navigation - Arrow keys for filter navigation", async ({
     page,
   }) => {
     await test.step("Add and complete a task", async () => {
