@@ -100,7 +100,7 @@
 
 ### 1. **Integrate with CI/CD**
 
-- [x] Add AI/static analysis tools (e.g., CodeQL, SonarCloud, actionlint) to CI for enhanced code safety and quality.
+- [x] Add static analysis and code quality tools (e.g., CodeQL, SonarCloud) to CI for enhanced code safety and quality.
 - [ ] Do a dedicated "Quality Gate Review" to ensure all checks are useful, relevant and are efficient.
 
 ### 2. **Cross-Browser Testing with BrowserStack**
