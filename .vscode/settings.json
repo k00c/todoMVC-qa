@@ -1,0 +1,6 @@
+{
+  "sonarlint.connectedMode.project": {
+    "connectionId": "k00c",
+    "projectKey": "k00c_todoMVC-qa"
+  }
+}

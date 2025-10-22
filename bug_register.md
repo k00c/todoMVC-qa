@@ -2,9 +2,11 @@
 
 ## 2025-10-19
 
-### Bug 1: Special Character Rendering Issue
+### Bug 1: Special Character Rendering Issue (React Version Only)
 
 - **Summary:** The ampersand character (`&`) in a todo task is displayed as `&amp;` instead of `&`.
+- **Affected Version:** Plain React (`/examples/react/dist/`) - **BUG EXISTS**
+- **Not Affected:** TypeScript React (`/examples/typescript-react/#/`) - **BUG FIXED**
 - **Steps to Reproduce:**
   1. Navigate to https://todomvc.com/examples/react/dist/
   2. Add a new task with the text: `Special !@#$%^&*()`
@@ -22,4 +24,6 @@
   - Browser: (all major browsers)
   - Date: 2025-10-19
 - **Notes:**
-  - This may indicate improper HTML escaping or rendering in the React app.
+  - This bug only exists in the plain React version.
+  - The TypeScript React version correctly renders the ampersand character.
+  - Our tests now use the TypeScript React version, so this bug does not affect our test suite.
