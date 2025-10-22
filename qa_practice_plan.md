@@ -234,6 +234,77 @@
     - [ ] Alternatives: LambdaTest, Sauce Labs (also offer free tiers)
   - [ ] Document ROI of cross-browser testing for this learning project
 
+### 3. **BrowserStack Test Observability / Test Reporting & Analytics (FREE Tier Available - Recommended First Step)**
+
+> **Best for Learning**: Test Observability (also called "Test Reporting & Analytics" - BrowserStack uses both names) has a FREE tier and doesn't consume your 100-minute Automate trial. Perfect for uploading results from tests running locally or in GitHub Actions! **Note**: Verify exact free tier limits during signup - pricing details not publicly listed.
+
+- [ ] **Set Up Test Observability/Reporting Account**:
+  - [ ] Sign up at [observability.browserstack.com](https://observability.browserstack.com/) (free tier available, verify limits)
+  - [ ] Or access from main BrowserStack dashboard → "Test Observability" or "Test Reporting & Analytics" in sidebar
+  - [ ] **Note**: BrowserStack appears to be rebranding this product - you may see either name
+  - [ ] Obtain credentials (username and access key from Settings/Integration)
+  - [ ] These credentials are separate from BrowserStack Automate credentials
+  - [ ] Store credentials in GitHub Secrets (`BROWSERSTACK_TEST_OBS_USERNAME`, `BROWSERSTACK_TEST_OBS_ACCESS_KEY`)
+
+- [ ] **Install Test Observability SDK**:
+  - [ ] Install the SDK for Playwright:
+    ```bash
+    npm install --save-dev @browserstack/test-observability
+    ```
+  - [ ] Verify installation in `package.json`
+
+- [ ] **Configure Playwright Reporter**:
+  - [ ] Add Test Observability reporter to `playwright.config.ts`:
+    ```typescript
+    reporter: [
+      ['list'],
+      ['@browserstack/test-observability/playwright']
+    ],
+    ```
+  - [ ] Keep existing reporters (list, html) for local use
+  - [ ] Set environment variables for authentication:
+    ```bash
+    export BROWSERSTACK_USERNAME=your_test_obs_username
+    export BROWSERSTACK_ACCESS_KEY=your_test_obs_access_key
+    ```
+
+- [ ] **Run Tests and Upload Results**:
+  - [ ] Run your tests normally with `npm test`
+  - [ ] Verify results automatically upload to BrowserStack dashboard
+  - [ ] Check Test Observability dashboard for test execution data
+  - [ ] Review analytics: pass/fail rates, execution times, failure trends
+
+- [ ] **Explore Test Observability/Reporting Features**:
+  - [ ] View test execution history and trends
+  - [ ] Analyze test flakiness detection (AI-powered)
+  - [ ] Review failure patterns and error grouping
+  - [ ] Check test duration analytics
+  - [ ] Try AI-based failure categorization (if available in your tier)
+  - [ ] Export reports and share with team (for learning/portfolio)
+
+- [ ] **Integrate with GitHub Actions CI**:
+  - [ ] Add BrowserStack credentials to GitHub Secrets
+  - [ ] Update workflow to set environment variables
+  - [ ] Run tests in CI and verify results upload to BrowserStack
+  - [ ] Monitor test execution analytics from CI runs
+  - [ ] Set up build names to track different branches/PRs
+
+- [ ] **Optimize for Free Tier**:
+  - [ ] **Verify free tier limits during signup** (not publicly listed on website)
+  - [ ] Monitor usage against your account's free tier limits
+  - [ ] Clarify if limits are per test execution or per test run/build
+  - [ ] If needed, configure selective uploads (only main branch, PRs)
+  - [ ] Review data retention policy for your tier
+  - [ ] Document actual limits and usage patterns for future reference
+
+- [ ] **Document Test Observability/Reporting Integration**:
+  - [ ] Add setup instructions to README
+  - [ ] Document how to view results in BrowserStack dashboard
+  - [ ] Note which product name you see in your account (Test Observability vs. Test Reporting & Analytics)
+  - [ ] Create guide for interpreting test analytics
+  - [ ] Document actual free tier limitations discovered during signup
+  - [ ] Add screenshots of dashboard to documentation
+
 ---
 
 ## **Outcome**
