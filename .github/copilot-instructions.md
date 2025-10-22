@@ -2,17 +2,34 @@
 
 ## Project Overview
 
-This is a QA skills practice repository for testing the TodoMVC React app (https://todomvc.com/examples/react/dist) using Playwright. The focus is on learning test automation, CI/CD quality gates, and best practices for maintainable test code.
+This is a QA skills practice repository for testing the **TodoMVC TypeScript React app** (https://todomvc.com/examples/typescript-react) using Playwright. The focus is on learning test automation, CI/CD quality gates, and best practices for maintainable test code.
+
+**Important**: Always use `/examples/typescript-react/#/` as the base URL, not `/examples/react/dist/`.
 
 ## Test Architecture & Patterns
 
+### Test File Organization
+
+The project has comprehensive test coverage organized by priority and type:
+
+1. **`todomvc_high_priority.spec.ts`** - Critical user flows (add, delete, complete, filter tasks)
+2. **`todomvc_accessibility.spec.ts`** - ARIA snapshots, keyboard navigation, accessibility tree validation
+3. **`todomvc_performance.spec.ts`** - Page load metrics, responsiveness with 100+ tasks, filtering performance
+4. **`todomvc_edge_cases.spec.ts`** - Edit task functionality, empty/whitespace validation, extremely long task names
+
 ### Helper Functions Over Duplication
 
-All tests use reusable helper functions defined at the top of test files (see `tests/todomvc_high_priority.spec.ts`):
+All tests use reusable helper functions defined at the top of test files:
+
+**High Priority Tests** (`tests/todomvc_high_priority.spec.ts`):
 
 - `addTasks(page, tasks: string[])` - Adds multiple tasks via the input field
 - `completeAllTasks(page)` - Clicks the "toggle all" checkbox
 - `clearCompletedTasks(page)` - Clicks the "Clear completed" button
+
+**Accessibility Tests** (`tests/todomvc_accessibility.spec.ts`):
+
+- `addTasks(page, tasks: string[])` - Same helper pattern for DRY code
 
 **When adding new tests:** Extract repeated actions into helpers rather than duplicating code.
 
@@ -42,18 +59,44 @@ test("Test name describes user action", async ({ page }) => {
 });
 ```
 
-## CI/CD Workflow (`.github/workflows/playwright.yml`)
+## CI/CD Workflow Architecture
 
-### Two-Stage Pipeline
+### Centralized Lint & Format (`.github/workflows/lint.yml`)
 
-1. **lint-and-format** job: Runs Prettier and ESLint (with Playwright plugin) on all code
-2. **test** job: Installs only Chromium browser and runs Playwright tests (depends on lint-and-format)
+**Reusable workflow** that runs once per push/PR via `workflow_call`:
 
-### Key Decisions
+- Runs Prettier check on all files
+- Runs ESLint with Playwright plugin on TypeScript/JavaScript files
+- Only executes when called by other workflows (no direct triggers)
 
-- **Chromium only in CI**: To speed up browser install (~2-3 min), we only test Chromium. Cross-browser testing is considered lower priority for this practice project.
-- **Headed mode locally, headless in CI**: `playwright.config.ts` uses `headless: process.env.CI ? true : false` so developers can watch tests run locally.
-- **No actionlint**: Removed due to complexity vs. value for a small project. Prettier catches YAML formatting issues.
+### Quality Gate Workflows
+
+All CI/CD workflows depend on `lint.yml` passing first:
+
+1. **Playwright Tests** (`.github/workflows/playwright.yml`):
+   - Installs only Chromium browser (faster ~2-3 min)
+   - Runs all 30+ Playwright tests in parallel
+   - Uploads test reports and traces on failure
+   - Depends on: `code-quality` job (lint.yml)
+
+2. **CodeQL Security Analysis** (`.github/workflows/codeql.yml`):
+   - Scans for security vulnerabilities in JavaScript/TypeScript and GitHub Actions
+   - Runs on push to main, PRs, and weekly schedule
+   - Depends on: `code-quality` job (lint.yml)
+
+3. **SonarCloud Quality Analysis** (`.github/workflows/sonarcloud.yml`):
+   - Analyzes code quality, coverage, and technical debt
+   - Configured to exclude test files from coverage requirements
+   - Runs on push to main and PRs
+   - Depends on: `code-quality` job (lint.yml)
+
+### Key Architectural Decisions
+
+- **Single lint/format execution**: Centralized `lint.yml` runs exactly once per push/PR, avoiding duplicate CI time
+- **Chromium only in CI**: Cross-browser testing deferred to BrowserStack (when implemented) for free tier optimization
+- **Headed mode locally, headless in CI**: `playwright.config.ts` uses `headless: process.env.CI ? true : false`
+- **Parallel test execution**: `fullyParallel: true` with 3 workers for speed
+- **Retry strategy**: `retries: process.env.CI ? 2 : 0` - only retry in CI to catch flaky tests
 
 ## Known Issues & Bug Tracking
 
@@ -63,18 +106,20 @@ Document bugs found during testing with:
 
 - Summary, steps to reproduce, expected vs. actual results
 - Locator information (so tests can be written or marked as expected failures)
-- Example: Bug #1 - Ampersand renders as `&amp;` (see test with `test.fail()` annotation)
+- Version-specific notes (e.g., bug exists in plain React but not TypeScript React)
 
 ### Test Annotations for Known Bugs
 
 Use `test.fail()` to mark tests for known bugs:
 
 ```typescript
-test("Add task with ampersand (known bug)", async ({ page }) => {
-  test.fail(true, "Known bug: & renders as &amp; (bug #1)");
+test("Feature with known bug", async ({ page }) => {
+  test.fail(true, "Known bug: Description (bug register reference)");
   // ... test code
 });
 ```
+
+**Note**: The ampersand bug (renders as `&amp;`) only exists in the plain React version, not the TypeScript React version we're testing.
 
 ## Developer Workflows
 
@@ -123,12 +168,14 @@ Uses flat config (ESLint v9+) with TypeScript parser and Playwright plugin for t
 - Learn Playwright best practices (web-first assertions, auto-waiting, accessibility)
 - Build a maintainable test suite with helper functions and clear structure
 - Establish CI/CD quality gates (linting, formatting, tests)
+- Implement comprehensive test coverage (functional, accessibility, performance, edge cases)
+- Integrate code quality tools (CodeQL, SonarCloud)
 
 ### Non-Goals
 
-- Comprehensive cross-browser testing (Chromium only for speed)
+- Comprehensive cross-browser testing in CI (Chromium only for speed; BrowserStack for manual/scheduled cross-browser testing)
 - Testing the TodoMVC app itself (focus is on QA skills, not app validation)
-- Advanced static analysis tools (CodeQL, SonarCloud deferred for simplicity)
+- Production-grade infrastructure (this is a learning/practice project)
 
 ## When Making Changes
 
@@ -136,3 +183,20 @@ Uses flat config (ESLint v9+) with TypeScript parser and Playwright plugin for t
 2. **Updating workflows**: Keep jobs fast and focused. Don't add complexity without clear value.
 3. **Code style**: Always run Prettier before committing. ESLint will catch Playwright-specific issues.
 4. **Bugs found**: Add to `bug_register.md` and consider marking test as `test.fail()` if it's an upstream bug.
+
+## Future Enhancements
+
+### Planned/In Progress
+
+- **BrowserStack Integration**: Cross-browser testing with BrowserStack Automate (free tier/trial)
+  - BrowserStack Live for manual testing
+  - BrowserStack Chrome Extension for quick checks
+  - BrowserStack Test Management for test case organization
+  - See `qa_practice_plan.md` for detailed integration steps
+
+### Potential Future Work
+
+- Visual regression testing (Percy, Applitools, or BrowserStack Percy)
+- API testing with Playwright (if TodoMVC has an API backend)
+- Mobile app testing (if TodoMVC has native apps)
+- Load/stress testing for performance validation

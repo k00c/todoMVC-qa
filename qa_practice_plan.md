@@ -103,6 +103,137 @@
 - [x] Add AI/static analysis tools (e.g., CodeQL, SonarCloud, actionlint) to CI for enhanced code safety and quality.
 - [ ] Do a dedicated "Quality Gate Review" to ensure all checks are useful, relevant and are efficient.
 
+### 2. **Cross-Browser Testing with BrowserStack**
+
+> **Recommended Plan**: BrowserStack Free Trial (100 minutes) or Open Source plan (free for public repos). For learning, the free trial provides sufficient access to all features including Live, Automate, App Live, and Test Management.
+
+- [ ] **Set Up BrowserStack Account**:
+  - [ ] Sign up for a free trial at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up) (100 minutes free)
+  - [ ] For open source projects, apply for free access at [browserstack.com/open-source](https://www.browserstack.com/open-source)
+  - [ ] Obtain BrowserStack credentials (username and access key from Account > Settings)
+  - [ ] Store credentials securely in GitHub Secrets (`BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY`)
+
+- [ ] **Explore BrowserStack Live Testing**:
+  - [ ] Access BrowserStack Live from dashboard for manual testing
+  - [ ] Test TodoMVC app on different browsers (Chrome, Firefox, Safari, Edge)
+  - [ ] Test on different operating systems (Windows, macOS)
+  - [ ] Test on mobile devices (iOS Safari, Android Chrome)
+  - [ ] Practice using DevTools, Network Monitor, and screenshot capture
+  - [ ] Use responsive mode to test different screen sizes
+
+- [ ] **Install BrowserStack Chrome Extension**:
+  - [ ] Install [BrowserStack extension](https://chrome.google.com/webstore/detail/browserstack/nkihdmlheodkdfojglpcjjmioefjahjb) from Chrome Web Store
+  - [ ] Log in with BrowserStack credentials
+  - [ ] Practice launching instant browser tests from extension
+  - [ ] Use extension for quick cross-browser checks during development
+  - [ ] Explore screenshot capture across multiple browsers simultaneously
+  - [ ] Test responsive design breakpoints using extension
+
+- [ ] **Set Up BrowserStack Test Management**:
+  - [ ] Access Test Management from BrowserStack dashboard (included in free trial)
+  - [ ] Create a new project for TodoMVC QA practice
+  - [ ] Explore test case management features:
+    - [ ] Create test suites (Functional, Performance, Accessibility, Edge Cases)
+    - [ ] Import test cases from your test plan
+    - [ ] Organize tests by priority (High, Medium, Low)
+    - [ ] Add test steps, expected results, and attachments
+  - [ ] Practice test execution tracking:
+    - [ ] Create test runs for different browsers/devices
+    - [ ] Mark tests as Pass/Fail/Blocked
+    - [ ] Add screenshots and notes to test results
+    - [ ] Track bugs discovered during testing
+  - [ ] Set up integrations:
+    - [ ] Explore Jira integration (if available) for bug tracking
+    - [ ] Review reporting and analytics dashboards
+    - [ ] Export test reports (CSV, PDF)
+
+- [ ] **Explore BrowserStack MCP (Model Context Protocol) Integration**:
+  - [ ] **Note**: BrowserStack MCP integration is for AI-powered test generation and maintenance
+  - [ ] Review BrowserStack's AI testing capabilities:
+    - [ ] Explore visual testing with Percy (if available in trial)
+    - [ ] Review accessibility testing integrations
+    - [ ] Explore test analytics and failure pattern detection
+  - [ ] If using GitHub Copilot or similar AI tools:
+    - [ ] Configure AI assistant with BrowserStack capabilities knowledge
+    - [ ] Practice generating BrowserStack test configs with AI assistance
+    - [ ] Use AI to help troubleshoot BrowserStack-specific issues
+    - [ ] Generate browser/device matrix configurations with AI help
+
+- [ ] **Install and Configure BrowserStack Local**:
+  - [ ] Install `@browserstack/browserstack-local` package for testing local/staging environments:
+    ```bash
+    npm install --save-dev @browserstack/browserstack-local
+    ```
+  - [ ] Configure BrowserStack Local in Playwright config for secure tunnel testing
+  - [ ] Test local TodoMVC instance on BrowserStack browsers
+
+- [ ] **Configure Playwright for BrowserStack Automate**:
+  - [ ] Install BrowserStack SDK:
+    ```bash
+    npm install --save-dev @browserstack/playwright-browserstack
+    ```
+  - [ ] Create `playwright.browserstack.config.ts` with BrowserStack-specific settings
+  - [ ] Define browser/device matrix for free tier (optimize for concurrent sessions):
+    - [ ] **Free Trial**: 5 parallel sessions, 100 minutes total
+    - [ ] Prioritize most important browser/OS combinations
+    - [ ] Example matrix: Chrome/Windows, Safari/Mac, Chrome/Android, Safari/iOS
+  - [ ] Configure BrowserStack capabilities (project name, build name, session name)
+  - [ ] Set up connection options (hub URL, credentials, parallel execution limits)
+  - [ ] Configure test annotations and custom identifiers
+
+- [ ] **Update Test Scripts for BrowserStack Compatibility**:
+  - [ ] Review existing tests for BrowserStack-specific considerations
+  - [ ] Add proper waits and retries for network latency (tests run on remote browsers)
+  - [ ] Ensure tests handle BrowserStack-specific timing differences
+  - [ ] Add BrowserStack-specific test metadata (tags, custom data)
+
+- [ ] **Create BrowserStack CI/CD Workflow**:
+  - [ ] Create `.github/workflows/browserstack.yml` for cross-browser testing
+  - [ ] Configure workflow to run on schedule (e.g., nightly) or manual trigger to conserve free minutes
+  - [ ] Set up matrix strategy for parallel browser execution (max 5 for free tier)
+  - [ ] Configure BrowserStack session annotations (test status, reason for failure)
+  - [ ] Add workflow to only run on main branch or specific PRs to save minutes
+
+- [ ] **Implement BrowserStack Reporting**:
+  - [ ] Configure automatic test status updates to BrowserStack dashboard
+  - [ ] Set up session naming for easy identification (commit hash, PR number, branch name)
+  - [ ] Enable video recording and screenshots for failed tests
+  - [ ] Configure BrowserStack test reports and analytics
+  - [ ] Link BrowserStack sessions to Test Management test runs
+
+- [ ] **Test and Validate**:
+  - [ ] Run tests locally with BrowserStack configuration
+  - [ ] Verify tests execute correctly on multiple browsers/devices
+  - [ ] Check BrowserStack dashboard for session details and results
+  - [ ] Validate CI/CD workflow triggers and executes successfully
+  - [ ] Review video recordings and screenshots in BrowserStack dashboard
+
+- [ ] **Optimize BrowserStack Usage for Free Tier**:
+  - [ ] Review parallel execution limits (5 concurrent for free trial)
+  - [ ] Configure smart test selection (run only critical tests on BrowserStack)
+  - [ ] Set up test scheduling to run during off-peak hours if needed
+  - [ ] Monitor BrowserStack usage dashboard (track minutes used)
+  - [ ] Consider which tests truly need cross-browser testing vs. Chromium-only
+  - [ ] Use BrowserStack for visual regression and cross-browser issues, local Playwright for functional tests
+
+- [ ] **Document BrowserStack Integration**:
+  - [ ] Add BrowserStack setup instructions to README
+  - [ ] Document how to run tests with BrowserStack locally
+  - [ ] Create troubleshooting guide for common BrowserStack issues (tunnel, timeouts, sessions)
+  - [ ] Document browser/device matrix and rationale
+  - [ ] Add notes about free tier limitations and optimization strategies
+  - [ ] Document Test Management workflow and conventions
+
+- [ ] **Cost Management and Future Planning**:
+  - [ ] Track free trial usage (100 minutes expires after trial period)
+  - [ ] Evaluate if open source plan is suitable (free for public repos)
+  - [ ] If trial expires, consider:
+    - [ ] Open Source plan (free, requires approval)
+    - [ ] BrowserStack Live plan ($29/month) for manual testing only
+    - [ ] Automate plan ($99/month) for automated testing
+    - [ ] Alternatives: LambdaTest, Sauce Labs (also offer free tiers)
+  - [ ] Document ROI of cross-browser testing for this learning project
+
 ---
 
 ## **Outcome**

@@ -7,7 +7,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("TodoMVC Performance Tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/examples/react/dist/");
+    await page.goto("/examples/typescript-react/#/");
   });
 
   test("Measure page load time", async ({ page }) => {
