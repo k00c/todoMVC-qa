@@ -66,14 +66,14 @@ The scope of this test plan includes:
 #### **High Priority**
 
 - [ ] **Accessibility**:
-  - [ ] Validate ARIA roles and attributes.
-  - [ ] Test keyboard navigation.
+  - [x] Validate ARIA roles and attributes.
+  - [x] Test keyboard navigation.
 
 #### **Medium Priority**
 
-- [ ] **Performance**:
-  - [ ] Measure page load time.
-  - [ ] Test responsiveness with 100+ tasks.
+- [x] **Performance**:
+  - [x] Measure page load time.
+  - [x] Test responsiveness with 100+ tasks.
 
 #### **Low Priority**
 

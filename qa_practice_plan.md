@@ -56,19 +56,19 @@
 
 ### 2. **Incorporate Accessibility Testing**
 
-- [ ] Use `toMatchAriaSnapshot` to validate accessibility tree structures.
+- [x] Use `toMatchAriaSnapshot` to validate accessibility tree structures.
 
 ### 3. **Add Assertions**
 
-- [ ] Ensure meaningful assertions (e.g., `toHaveText`, `toHaveURL`).
+- [x] Ensure meaningful assertions (e.g., `toHaveText`, `toHaveURL`).
 
 ### 4. **Run and Debug**
 
-- [ ] Run your tests using:
+- [x] Run your tests using:
   ```bash
   npx playwright test
   ```
-- [ ] Debug any failures and refine your scripts.
+- [x] Debug any failures and refine your scripts.
 
 ---
 

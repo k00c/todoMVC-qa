@@ -1,11 +1,7 @@
 name: Code Quality - Lint & Format
 
 on:
-  workflow_call: # This makes it reusable by other workflows
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  workflow_call: # Only runs when called by other workflows
 
 permissions:
   contents: read
