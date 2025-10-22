@@ -1,5 +1,17 @@
 import { test, expect } from "@playwright/test";
 
+// Helper to add one or more tasks
+async function addTasks(
+  page: import("@playwright/test").Page,
+  tasks: string[],
+) {
+  const input = page.getByPlaceholder("What needs to be done?");
+  for (const task of tasks) {
+    await input.fill(task);
+    await input.press("Enter");
+  }
+}
+
 test.describe("TodoMVC React - Accessibility Tests", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/examples/typescript-react/#/");
@@ -33,11 +45,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     page,
   }) => {
     await test.step("Add test tasks", async () => {
-      const input = page.getByPlaceholder("What needs to be done?");
-      await input.fill("Task 1");
-      await input.press("Enter");
-      await input.fill("Task 2");
-      await input.press("Enter");
+      await addTasks(page, ["Task 1", "Task 2"]);
     });
 
     await test.step("Verify task list accessibility structure", async () => {
@@ -81,9 +89,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     page,
   }) => {
     await test.step("Add a test task", async () => {
-      const input = page.getByPlaceholder("What needs to be done?");
-      await input.fill("Keyboard test task");
-      await input.press("Enter");
+      await addTasks(page, ["Keyboard test task"]);
     });
 
     await test.step("Navigate with Tab key", async () => {
@@ -118,9 +124,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     page,
   }) => {
     await test.step("Add a test task", async () => {
-      const input = page.getByPlaceholder("What needs to be done?");
-      await input.fill("Space key test");
-      await input.press("Enter");
+      await addTasks(page, ["Space key test"]);
     });
 
     await test.step("Use Space key to toggle task completion", async () => {
@@ -145,16 +149,13 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
 
   test("keyboard navigation - Enter key to add task", async ({ page }) => {
     await test.step("Use Enter key to add task", async () => {
-      const input = page.getByPlaceholder("What needs to be done?");
-      await input.fill("Enter key test");
-
-      // Press Enter to add
-      await page.keyboard.press("Enter");
+      await addTasks(page, ["Enter key test"]);
 
       // Verify task was added
       await expect(page.getByText("Enter key test")).toBeVisible();
 
       // Verify input is cleared
+      const input = page.getByPlaceholder("What needs to be done?");
       await expect(input).toHaveValue("");
     });
   });
@@ -163,9 +164,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     page,
   }) => {
     await test.step("Add and complete a task", async () => {
-      const input = page.getByPlaceholder("What needs to be done?");
-      await input.fill("Filter navigation test");
-      await input.press("Enter");
+      await addTasks(page, ["Filter navigation test"]);
 
       // Complete the task
       const todoList = page.getByRole("list");
@@ -210,9 +209,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
     });
 
     await test.step("Check list structure for tasks", async () => {
-      const input = page.getByPlaceholder("What needs to be done?");
-      await input.fill("Test task");
-      await input.press("Enter");
+      await addTasks(page, ["Test task"]);
 
       const list = page.locator(".todo-list");
       await expect(list).toBeVisible();
@@ -221,9 +218,7 @@ test.describe("TodoMVC React - Accessibility Tests", () => {
 
   test("Verify accessible names for interactive elements", async ({ page }) => {
     await test.step("Add a task to show all controls", async () => {
-      const input = page.getByPlaceholder("What needs to be done?");
-      await input.fill("Accessible names test");
-      await input.press("Enter");
+      await addTasks(page, ["Accessible names test"]);
     });
 
     await test.step("Check accessible names", async () => {
