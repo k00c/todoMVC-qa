@@ -42,7 +42,7 @@ test.describe("TodoMVC Performance Tests", () => {
     });
   });
 
-  test("Test responsiveness with 100+ tasks", async ({ page }) => {
+  test("Responsiveness with 100+ tasks", async ({ page }) => {
     const taskCount = 100;
     const tasks: string[] = [];
 
@@ -53,7 +53,7 @@ test.describe("TodoMVC Performance Tests", () => {
     });
 
     await test.step("Add 100 tasks and measure time", async () => {
-      const startTime = Date.now();
+      const startTime = performance.now();
 
       for (const task of tasks) {
         const input = page.getByPlaceholder("What needs to be done?");
@@ -61,7 +61,7 @@ test.describe("TodoMVC Performance Tests", () => {
         await input.press("Enter");
       }
 
-      const endTime = Date.now();
+      const endTime = performance.now();
       const totalTime = endTime - startTime;
 
       console.log(`Time to add ${taskCount} tasks: ${totalTime}ms`);
