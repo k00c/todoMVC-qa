@@ -43,32 +43,58 @@ npx playwright install chromium
 
 ```bash
 # Run all tests
+npm test
+# or
 npx playwright test
 
 # Run tests in headed mode
+npm run test:headed
+# or
 npx playwright test --headed
 
 # Run specific test file
 npx playwright test todomvc_high_priority
 
 # Debug tests
+npm run test:debug
+# or
 npx playwright test --debug
 
 # View test report
+npm run report
+# or
 npx playwright show-report
 ```
 
 ### Code Quality
 
 ```bash
+# Quick check before committing (recommended)
+npm run check
+
+# Auto-fix all issues
+npm run fix
+
+# Individual commands:
 # Format code
+npm run format
+# or
 npx prettier --write .
 
-# Check formatting
+# Check formatting only
+npm run format:check
+# or
 npx prettier --check .
 
 # Lint code
+npm run lint
+# or
 npx eslint . --ext .ts,.js --plugin playwright
+
+# Auto-fix lint issues
+npm run lint:fix
+# or
+npx eslint . --ext .ts,.js --plugin playwright --fix
 ```
 
 ## CI/CD Pipeline

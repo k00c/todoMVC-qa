@@ -66,9 +66,7 @@ test.describe("TodoMVC Edge Case Tests", () => {
 
       await test.step("Verify original task name is preserved", async () => {
         await expect(page.getByText("Task to edit")).toBeVisible();
-        await expect(
-          page.getByText("This should not be saved"),
-        ).toBeHidden();
+        await expect(page.getByText("This should not be saved")).toBeHidden();
         // Verify no longer in edit mode
         await expect(page.locator(".todo-list li .edit")).toBeHidden();
       });
@@ -219,9 +217,7 @@ test.describe("TodoMVC Edge Case Tests", () => {
       await test.step("Verify task was created (Enter submits, not adds newline)", async () => {
         // Enter key submits the task, so we should have one task
         await expect(page.locator(".todo-list li")).toHaveCount(1);
-        const taskText = page
-          .locator(".todo-list li label")
-          ;
+        const taskText = page.locator(".todo-list li label");
         await expect(taskText).toHaveText("Task with");
       });
     });
