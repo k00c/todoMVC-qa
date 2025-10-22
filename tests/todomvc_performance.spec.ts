@@ -67,8 +67,11 @@ test.describe("TodoMVC Performance Tests", () => {
       console.log(`Time to add ${taskCount} tasks: ${totalTime}ms`);
       console.log(`Average time per task: ${totalTime / taskCount}ms`);
 
-      // Verify all tasks were added (should be reasonable even with 100 tasks)
-      expect(totalTime).toBeLessThan(30000); // Should complete within 30 seconds
+      // Verify all tasks were added
+      await expect(page.locator(".todo-list li")).toHaveCount(taskCount);
+
+      // Should complete within 30 seconds
+      expect(totalTime).toBeLessThan(30000);
     });
 
     await test.step("Verify task count accuracy", async () => {
