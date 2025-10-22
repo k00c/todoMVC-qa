@@ -37,9 +37,9 @@ test.describe("TodoMVC Edge Case Tests", () => {
 
       await test.step("Verify task was updated", async () => {
         await expect(page.getByText("Updated task name")).toBeVisible();
-        await expect(page.getByText("Original task name")).not.toBeVisible();
+        await expect(page.getByText("Original task name")).toBeHidden();
         // Verify no longer in edit mode
-        await expect(page.locator(".todo-list li .edit")).not.toBeVisible();
+        await expect(page.locator(".todo-list li .edit")).toBeHidden();
       });
     });
 
@@ -68,9 +68,9 @@ test.describe("TodoMVC Edge Case Tests", () => {
         await expect(page.getByText("Task to edit")).toBeVisible();
         await expect(
           page.getByText("This should not be saved"),
-        ).not.toBeVisible();
+        ).toBeHidden();
         // Verify no longer in edit mode
-        await expect(page.locator(".todo-list li .edit")).not.toBeVisible();
+        await expect(page.locator(".todo-list li .edit")).toBeHidden();
       });
     });
 
@@ -125,7 +125,7 @@ test.describe("TodoMVC Edge Case Tests", () => {
         // Check that no tasks exist in the list
         await expect(page.locator(".todo-list li")).toHaveCount(0);
         // Verify the footer with task count is not visible
-        await expect(page.locator(".footer")).not.toBeVisible();
+        await expect(page.locator(".footer")).toBeHidden();
       });
 
       await test.step("Try with only whitespace", async () => {
@@ -136,7 +136,7 @@ test.describe("TodoMVC Edge Case Tests", () => {
 
       await test.step("Verify whitespace-only task was not added", async () => {
         await expect(page.locator(".todo-list li")).toHaveCount(0);
-        await expect(page.locator(".footer")).not.toBeVisible();
+        await expect(page.locator(".footer")).toBeHidden();
       });
     });
 
@@ -163,8 +163,8 @@ test.describe("TodoMVC Edge Case Tests", () => {
         await expect(taskLabel).toBeVisible();
 
         // Get the full text content
-        const actualText = await taskLabel.textContent();
-        expect(actualText).toBe(longTaskName);
+        const actualText = taskLabel;
+        await expect(actualText).toHaveText(longTaskName);
 
         // Check that the task is scrollable or handles overflow
         const isOverflowing = await taskLabel.evaluate((el) => {
@@ -203,8 +203,8 @@ test.describe("TodoMVC Edge Case Tests", () => {
       await test.step("Verify task was added successfully", async () => {
         await expect(page.locator(".todo-list li")).toHaveCount(1);
         const taskLabel = page.locator(".todo-list li label");
-        const actualText = await taskLabel.textContent();
-        expect(actualText).toBe(reasonableMaxLength);
+        const actualText = taskLabel;
+        await expect(actualText).toHaveText(reasonableMaxLength);
       });
     });
 
@@ -219,10 +219,10 @@ test.describe("TodoMVC Edge Case Tests", () => {
       await test.step("Verify task was created (Enter submits, not adds newline)", async () => {
         // Enter key submits the task, so we should have one task
         await expect(page.locator(".todo-list li")).toHaveCount(1);
-        const taskText = await page
+        const taskText = page
           .locator(".todo-list li label")
-          .textContent();
-        expect(taskText).toBe("Task with");
+          ;
+        await expect(taskText).toHaveText("Task with");
       });
     });
 
