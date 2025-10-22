@@ -49,12 +49,12 @@ The scope of this test plan includes:
 
 #### **Medium Priority (Edge Cases)**
 
-- [ ] **Edit Task**:
-  - [ ] Edit an existing task.
-  - [ ] Cancel editing without saving.
-- [ ] **Edge Cases for Adding Tasks**:
-  - [ ] Add an empty task (should not be allowed).
-  - [ ] Add an extremely long task name (e.g., 500 characters).
+- [x] **Edit Task**:
+  - [x] Edit an existing task.
+  - [x] Cancel editing without saving.
+- [x] **Edge Cases for Adding Tasks**:
+  - [x] Add an empty task (should not be allowed).
+  - [x] Add an extremely long task name (e.g., 500 characters).
 
 #### **Low Priority (Non-Critical Features)**
 
