@@ -108,8 +108,7 @@
 > **Recommended Plan**: BrowserStack Free Trial (100 minutes) or Open Source plan (free for public repos). For learning, the free trial provides sufficient access to all features including Live, Automate, App Live, and Test Management.
 
 - [ ] **Set Up BrowserStack Account**:
-  - [ ] Sign up for a free trial at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up) (100 minutes free)
-  - [ ] For open source projects, apply for free access at [browserstack.com/open-source](https://www.browserstack.com/open-source)
+  - [x] Sign up for a free trial at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up) (100 minutes free)
   - [ ] Obtain BrowserStack credentials (username and access key from Account > Settings)
   - [ ] Store credentials securely in GitHub Secrets (`BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY`)
 
