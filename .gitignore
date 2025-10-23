@@ -6,6 +6,12 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
+# BrowserStack - credentials and logs
+browserstackSetupConfig.json
+log/
+browserstack.err
+*.browserstack.log
+
 # Ignore environment variable files for security
 .env
 .env.*
