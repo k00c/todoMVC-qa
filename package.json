@@ -13,7 +13,16 @@
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:debug": "npx playwright test --debug",
-    "report": "npx playwright show-report"
+    "report": "npx playwright show-report",
+    "analyze": "node analyze-test-performance.js",
+    "test:analyze": "npm test && npm run analyze",
+    "postinstall": "npm update browserstack-node-sdk",
+    "lint-browserstack": "npx eslint . --ext .ts,.js --plugin browserstack-node-sdk playwright",
+    "lint:fix-browserstack": "npx eslint . --ext .ts,.js --plugin browserstack-node-sdk playwright --fix",
+    "test-browserstack": "npx browserstack-node-sdk playwright test",
+    "test:headed-browserstack": "npx browserstack-node-sdk playwright test --headed",
+    "test:debug-browserstack": "npx browserstack-node-sdk playwright test --debug",
+    "report-browserstack": "npx browserstack-node-sdk playwright show-report"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +33,7 @@
     "@types/node": "^24.8.1",
     "@typescript-eslint/eslint-plugin": "^8.46.1",
     "@typescript-eslint/parser": "^8.46.1",
+    "browserstack-node-sdk": "^1.45.3",
     "eslint-plugin-playwright": "^2.2.2"
   }
 }

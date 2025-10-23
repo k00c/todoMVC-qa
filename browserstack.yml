@@ -1,0 +1,15 @@
+# BrowserStack credentials - DO NOT COMMIT
+# Set these as environment variables instead:
+# export BROWSERSTACK_USERNAME=your_username
+# export BROWSERSTACK_ACCESS_KEY=your_access_key
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+buildName: "todoMVC Build 1"
+projectName: "todoMVC-qa"
+CUSTOM_TAG_1: "Build Tag 1"
+testObservability: true
+browserstackAutomation: false
+# Disable source code capture to fix serialization errors
+captureHooks: false
+capturePageContent: false
+captureDOM: false

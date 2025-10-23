@@ -108,8 +108,7 @@
 > **Recommended Plan**: BrowserStack Free Trial (100 minutes) or Open Source plan (free for public repos). For learning, the free trial provides sufficient access to all features including Live, Automate, App Live, and Test Management.
 
 - [ ] **Set Up BrowserStack Account**:
-  - [ ] Sign up for a free trial at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up) (100 minutes free)
-  - [ ] For open source projects, apply for free access at [browserstack.com/open-source](https://www.browserstack.com/open-source)
+  - [x] Sign up for a free trial at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up) (100 minutes free)
   - [ ] Obtain BrowserStack credentials (username and access key from Account > Settings)
   - [ ] Store credentials securely in GitHub Secrets (`BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY`)
 
@@ -234,76 +233,50 @@
     - [ ] Alternatives: LambdaTest, Sauce Labs (also offer free tiers)
   - [ ] Document ROI of cross-browser testing for this learning project
 
-### 3. **BrowserStack Test Observability / Test Reporting & Analytics (FREE Tier Available - Recommended First Step)**
+### 3. **Test Analytics & Performance Monitoring (Implemented - Working Solution)**
 
-> **Best for Learning**: Test Observability (also called "Test Reporting & Analytics" - BrowserStack uses both names) has a FREE tier and doesn't consume your 100-minute Automate trial. Perfect for uploading results from tests running locally or in GitHub Actions! **Note**: Verify exact free tier limits during signup - pricing details not publicly listed.
+> **Solution**: BrowserStack Test Observability has known serialization bugs with Playwright. Instead, we use **Playwright's JSON reporter** with a custom analysis script to track test performance and identify slow tests.
 
-- [ ] **Set Up Test Observability/Reporting Account**:
-  - [ ] Sign up at [observability.browserstack.com](https://observability.browserstack.com/) (free tier available, verify limits)
-  - [ ] Or access from main BrowserStack dashboard → "Test Observability" or "Test Reporting & Analytics" in sidebar
-  - [ ] **Note**: BrowserStack appears to be rebranding this product - you may see either name
-  - [ ] Obtain credentials (username and access key from Settings/Integration)
-  - [ ] These credentials are separate from BrowserStack Automate credentials
-  - [ ] Store credentials in GitHub Secrets (`BROWSERSTACK_TEST_OBS_USERNAME`, `BROWSERSTACK_TEST_OBS_ACCESS_KEY`)
+- [x] **Configure JSON Reporter**:
+  - [x] Added JSON reporter to `playwright.config.ts`
+  - [x] Outputs to `test-results/test-results.json`
+  - [x] Captures full test timing data, status, and metadata
 
-- [ ] **Install Test Observability SDK**:
-  - [ ] Install the SDK for Playwright:
-    ```bash
-    npm install --save-dev @browserstack/test-observability
-    ```
-  - [ ] Verify installation in `package.json`
+- [x] **Create Performance Analysis Script**:
+  - [x] `analyze-test-performance.js` - Node script to analyze test results
+  - [x] Shows slowest tests (> 5 seconds) - **currently 3 tests**
+  - [x] Shows fastest tests (< 1 second) - helps identify optimization opportunities
+  - [x] Performance breakdown by test file
+  - [x] Total duration, average duration, pass/fail counts
 
-- [ ] **Configure Playwright Reporter**:
-  - [ ] Add Test Observability reporter to `playwright.config.ts`:
-    ```typescript
-    reporter: [
-      ['list'],
-      ['@browserstack/test-observability/playwright']
-    ],
-    ```
-  - [ ] Keep existing reporters (list, html) for local use
-  - [ ] Set environment variables for authentication:
-    ```bash
-    export BROWSERSTACK_USERNAME=your_test_obs_username
-    export BROWSERSTACK_ACCESS_KEY=your_test_obs_access_key
-    ```
+- [x] **Run Analysis**:
 
-- [ ] **Run Tests and Upload Results**:
-  - [ ] Run your tests normally with `npm test`
-  - [ ] Verify results automatically upload to BrowserStack dashboard
-  - [ ] Check Test Observability dashboard for test execution data
-  - [ ] Review analytics: pass/fail rates, execution times, failure trends
+  ```bash
+  npx playwright test --project=chromium  # Generates JSON report
+  node analyze-test-performance.js        # Analyzes performance
+  ```
 
-- [ ] **Explore Test Observability/Reporting Features**:
-  - [ ] View test execution history and trends
-  - [ ] Analyze test flakiness detection (AI-powered)
-  - [ ] Review failure patterns and error grouping
-  - [ ] Check test duration analytics
-  - [ ] Try AI-based failure categorization (if available in your tier)
-  - [ ] Export reports and share with team (for learning/portfolio)
+- [x] **Current Performance Insights** (as of latest run):
+  - **Slowest Tests** (need optimization):
+    - `Mark all tasks as completed` - 8.76s (high priority tests)
+    - `Space key to toggle checkbox` - 8.70s (accessibility tests)
+    - `Responsiveness with 100+ tasks` - 8.48s (performance tests)
+  - **Total Suite Duration**: ~51s for 30 tests
+  - **Average Test Duration**: 2.34s
+  - **Performance Tests File**: Highest average (4.66s per test) - expected for performance validation
 
-- [ ] **Integrate with GitHub Actions CI**:
-  - [ ] Add BrowserStack credentials to GitHub Secrets
-  - [ ] Update workflow to set environment variables
-  - [ ] Run tests in CI and verify results upload to BrowserStack
-  - [ ] Monitor test execution analytics from CI runs
-  - [ ] Set up build names to track different branches/PRs
+- [ ] **Future Enhancements**:
+  - [ ] Create trend tracking (store results over time)
+  - [ ] Add GitHub Actions integration to comment on PRs with perf data
+  - [ ] Set performance budgets (fail CI if tests exceed thresholds)
+  - [ ] Generate performance graphs/charts from JSON data
 
-- [ ] **Optimize for Free Tier**:
-  - [ ] **Verify free tier limits during signup** (not publicly listed on website)
-  - [ ] Monitor usage against your account's free tier limits
-  - [ ] Clarify if limits are per test execution or per test run/build
-  - [ ] If needed, configure selective uploads (only main branch, PRs)
-  - [ ] Review data retention policy for your tier
-  - [ ] Document actual limits and usage patterns for future reference
-
-- [ ] **Document Test Observability/Reporting Integration**:
-  - [ ] Add setup instructions to README
-  - [ ] Document how to view results in BrowserStack dashboard
-  - [ ] Note which product name you see in your account (Test Observability vs. Test Reporting & Analytics)
-  - [ ] Create guide for interpreting test analytics
-  - [ ] Document actual free tier limitations discovered during signup
-  - [ ] Add screenshots of dashboard to documentation
+- [ ] **BrowserStack Test Observability (Alternative - Not Recommended)**:
+  - **Status**: Known serialization bugs with Playwright (`test_code` field causes `Type not convertible to Uint8Array` errors)
+  - **Issue**: Tests run but data doesn't upload to BrowserStack dashboard
+  - **Attempted Fixes**: Disabled source code capture, regenerated config, reinstalled SDK
+  - **Recommendation**: Skip until BrowserStack fixes SDK compatibility issues
+  - **Documentation**: See updated practice plan section for detailed troubleshooting history
 
 ---
 

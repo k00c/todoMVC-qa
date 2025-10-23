@@ -64,7 +64,42 @@ npx playwright test --debug
 npm run report
 # or
 npx playwright show-report
+
+# Analyze test performance
+npm run analyze
+# or
+node analyze-test-performance.js
+
+# Run tests and analyze performance
+npm run test:analyze
 ```
+
+### Test Performance Analytics
+
+The project includes a custom performance analysis tool that identifies slow tests:
+
+```bash
+npm run analyze
+```
+
+**Output includes:**
+
+- ✅ Total tests passed/failed
+- ⏱️ Total and average test duration
+- 🐌 Slowest tests (> 5 seconds) - helps identify optimization targets
+- ⚡ Fastest tests (< 1 second)
+- 📂 Performance breakdown by test file
+
+**Example:**
+
+```
+🐌 SLOWEST TESTS (> 5 seconds):
+1. [8.76s] Mark all tasks as completed
+2. [8.70s] Space key to toggle checkbox
+3. [8.48s] Responsiveness with 100+ tasks
+```
+
+This helps track test suite health and identify tests that need optimization.
 
 ### Code Quality
 
@@ -105,6 +140,24 @@ All workflows depend on a centralized lint/format check:
 2. **Playwright Tests** (`playwright.yml`) - Runs all tests on Chromium
 3. **CodeQL Security Analysis** (`codeql.yml`) - Scans for security vulnerabilities
 4. **SonarCloud Quality Analysis** (`sonarcloud.yml`) - Analyzes code quality and technical debt
+
+## BrowserStack Integration (Optional)
+
+**⚠️ Security Notice:** Never commit BrowserStack credentials to git!
+
+For BrowserStack setup instructions, see: [BROWSERSTACK_SETUP.md](BROWSERSTACK_SETUP.md)
+
+**Quick Setup:**
+
+```bash
+# Set environment variables (Linux/Mac/Git Bash)
+export BROWSERSTACK_USERNAME=your_username
+export BROWSERSTACK_ACCESS_KEY=your_access_key
+
+# Or create .env file (automatically ignored by git)
+cp .env.example .env
+# Edit .env with your credentials
+```
 
 ## Project Structure
 

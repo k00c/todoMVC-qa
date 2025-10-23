@@ -1,0 +1,28 @@
+{
+  "testDir": "./tests",
+  "fullyParallel": true,
+  "forbidOnly": false,
+  "retries": 0,
+  "reporter": [
+    ["html"],
+    [
+      "C:\\Users\\jerem\\Repos\\todoMVC-qa\\node_modules\\browserstack-node-sdk\\src\\bin\\playwright\\reporter\\reporter.js"
+    ]
+  ],
+  "use": { "baseURL": "https://todomvc.com", "headless": false, "trace": "on" },
+  "projects": [
+    {
+      "name": "chromium",
+      "use": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.7390.37 Safari/537.36",
+        "viewport": { "width": 1280, "height": 720 },
+        "screen": { "width": 1920, "height": 1080 },
+        "deviceScaleFactor": 1,
+        "isMobile": false,
+        "hasTouch": false,
+        "defaultBrowserType": "chromium"
+      }
+    }
+  ],
+  "globalSetup": "C:\\Users\\jerem\\Repos\\todoMVC-qa\\node_modules\\browserstack-node-sdk\\src\\bin\\playwright\\globalSetup.js"
+}

@@ -1,0 +1,16 @@
+# BrowserStack SDK generated files
+log/
+browserstackSetupConfig.json
+playwright-browserstack-sdk.config.temp.json
+playwright-browserstack-sdk.config.ts
+
+# Test results and reports
+test-results/
+playwright-report/
+
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
