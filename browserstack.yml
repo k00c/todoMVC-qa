@@ -1,0 +1,11 @@
+userName: jeremycook_xW0QGE
+accessKey: xizzbavbdAW1sSt1wu9q
+buildName: "todoMVC Build 1"
+projectName: "todoMVC-qa"
+CUSTOM_TAG_1: "Build Tag 1"
+testObservability: true
+browserstackAutomation: false
+# Disable source code capture to fix serialization errors
+captureHooks: false
+capturePageContent: false
+captureDOM: false

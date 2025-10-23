@@ -64,7 +64,42 @@ npx playwright test --debug
 npm run report
 # or
 npx playwright show-report
+
+# Analyze test performance
+npm run analyze
+# or
+node analyze-test-performance.js
+
+# Run tests and analyze performance
+npm run test:analyze
 ```
+
+### Test Performance Analytics
+
+The project includes a custom performance analysis tool that identifies slow tests:
+
+```bash
+npm run analyze
+```
+
+**Output includes:**
+
+- ✅ Total tests passed/failed
+- ⏱️ Total and average test duration
+- 🐌 Slowest tests (> 5 seconds) - helps identify optimization targets
+- ⚡ Fastest tests (< 1 second)
+- 📂 Performance breakdown by test file
+
+**Example:**
+
+```
+🐌 SLOWEST TESTS (> 5 seconds):
+1. [8.76s] Mark all tasks as completed
+2. [8.70s] Space key to toggle checkbox
+3. [8.48s] Responsiveness with 100+ tasks
+```
+
+This helps track test suite health and identify tests that need optimization.
 
 ### Code Quality
 

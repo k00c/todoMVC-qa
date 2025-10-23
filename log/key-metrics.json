@@ -1,0 +1,62 @@
+[
+  {
+    "name": "sdk:testhub",
+    "entryType": "measure",
+    "startTime": 622.0853999853134,
+    "duration": 2043.9480000138283,
+    "detail": null,
+    "success": true,
+    "failure": null,
+    "worker": 21696
+  },
+  {
+    "name": "sdk:percy",
+    "entryType": "measure",
+    "startTime": 2669.5275000035763,
+    "duration": 0.5135000050067902,
+    "detail": null,
+    "success": true,
+    "failure": null,
+    "worker": 21696
+  },
+  {
+    "name": "sdk:automate:local",
+    "entryType": "measure",
+    "startTime": 2670.1785999834538,
+    "duration": 0.26190000772476196,
+    "detail": null,
+    "success": true,
+    "failure": null,
+    "worker": 21696
+  },
+  {
+    "name": "sdk:testhub",
+    "entryType": "measure",
+    "startTime": 543.5557000041008,
+    "duration": 648.9311999976635,
+    "detail": null,
+    "success": true,
+    "failure": null,
+    "worker": 16780
+  },
+  {
+    "name": "sdk:percy",
+    "entryType": "measure",
+    "startTime": 1196.0239000022411,
+    "duration": 0.4325000047683716,
+    "detail": null,
+    "success": true,
+    "failure": null,
+    "worker": 16780
+  },
+  {
+    "name": "sdk:automate:local",
+    "entryType": "measure",
+    "startTime": 1196.568700015545,
+    "duration": 0.22450000047683716,
+    "detail": null,
+    "success": true,
+    "failure": null,
+    "worker": 16780
+  }
+]
