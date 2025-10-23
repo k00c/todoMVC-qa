@@ -141,6 +141,23 @@ All workflows depend on a centralized lint/format check:
 3. **CodeQL Security Analysis** (`codeql.yml`) - Scans for security vulnerabilities
 4. **SonarCloud Quality Analysis** (`sonarcloud.yml`) - Analyzes code quality and technical debt
 
+## BrowserStack Integration (Optional)
+
+**⚠️ Security Notice:** Never commit BrowserStack credentials to git!
+
+For BrowserStack setup instructions, see: [BROWSERSTACK_SETUP.md](BROWSERSTACK_SETUP.md)
+
+**Quick Setup:**
+```bash
+# Set environment variables (Linux/Mac/Git Bash)
+export BROWSERSTACK_USERNAME=your_username
+export BROWSERSTACK_ACCESS_KEY=your_access_key
+
+# Or create .env file (automatically ignored by git)
+cp .env.example .env
+# Edit .env with your credentials
+```
+
 ## Project Structure
 
 ```
