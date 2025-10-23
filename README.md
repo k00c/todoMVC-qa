@@ -148,6 +148,7 @@ All workflows depend on a centralized lint/format check:
 For BrowserStack setup instructions, see: [BROWSERSTACK_SETUP.md](BROWSERSTACK_SETUP.md)
 
 **Quick Setup:**
+
 ```bash
 # Set environment variables (Linux/Mac/Git Bash)
 export BROWSERSTACK_USERNAME=your_username
